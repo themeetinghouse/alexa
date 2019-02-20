@@ -1,27 +1,53 @@
 {
-  "interactionModel": {
-    "languageModel": {
-      "invocationName": "hello world",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "HelloWorldIntent",
-          "samples": [
-            "hello"
-          ]
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "the meeting house",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PauseIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ResumeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HelloWorldIntent",
+                    "samples": [
+                        "hello"
+                    ]
+                },
+                {
+                    "name": "PlayThisWeeksTeachingIntent",
+                    "samples": [
+                        "play this weeks teaching",
+                        "latest teaching",
+                        "play latest teaching",
+                        "play todays teaching",
+                        "play todays sermon",
+                        "play latest sermon",
+                        "latest sermon",
+                        "play this weeks sermon"
+                    ]
+                }
+                
+            ]
         }
-      ]
     }
-  }
 }

@@ -3,18 +3,18 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "Sample Short Description",
+          "summary": "Latest teaching from The Meeting House",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "Alexa open the meeting house",
+            "Alexa play the latest teaching from the meeting house",
+            ""
           ],
           "name": "The Meeting House",
-          "description": "Sample Full Description"
+          "description": "Latest teaching from The Meeting House"
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
+      "testingInstructions": "Ask to play the latest teaching",
       "category": "KNOWLEDGE_AND_TRIVIA",
       "distributionCountries": []
     },
