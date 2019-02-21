@@ -30,7 +30,7 @@
       },
       "isAvailableWorldwide": true,
       "testingInstructions": "Ask to play the latest teaching",
-      "category": "KNOWLEDGE_AND_TRIVIA",
+      "category": "RELIGION_AND_SPIRITUALITY",
       "distributionCountries": []
     },
     "privacyAndCompliance": {
@@ -54,9 +54,17 @@
         "endpoint": {
           "sourceDir": "lambda/custom",
           "uri": "ask-custom-The_Meeting_House-default"
-        }
+        },
+        "interfaces": [
+          {
+            "type": "AUDIO_PLAYER"
+          }
+        ]
       }
     },
     "manifestVersion": "1.0"
   }
 }
+
+
+
