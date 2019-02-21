@@ -28,12 +28,6 @@
                     "samples": []
                 },
                 {
-                    "name": "HelloWorldIntent",
-                    "samples": [
-                        "hello"
-                    ]
-                },
-                {
                     "name": "PlayThisWeeksTeachingIntent",
                     "samples": [
                         "play this weeks teaching",
