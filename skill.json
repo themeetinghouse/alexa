@@ -41,10 +41,10 @@
       "containsAds": false,
       "locales": {
         "en-US": {
-          "privacyPolicyUrl":  "http://www.themeetinghouse.com"
+          "privacyPolicyUrl": "http://themeetinghouse.com//resources/General_Resources/Data_Privacy_Policy_v.10.2018.pdf"
         },
         "en-CA": {
-          "privacyPolicyUrl": "http://www.themeetinghouse.com"
+          "privacyPolicyUrl": "http://themeetinghouse.com//resources/General_Resources/Data_Privacy_Policy_v.10.2018.pdf"
 
         }
       }
