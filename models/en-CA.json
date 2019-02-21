@@ -27,19 +27,42 @@
                     "name": "AMAZON.ResumeIntent",
                     "samples": []
                 },
-                {
-                    "name": "PlayThisWeeksTeachingIntent",
-                    "samples": [
-                        "play this weeks teaching",
-                        "latest teaching",
-                        "play latest teaching",
-                        "play todays teaching",
-                        "play todays sermon",
-                        "play latest sermon",
-                        "latest sermon",
-                        "play this weeks sermon"
-                    ]
-                }
+              {
+                "name": "PlayThisWeeksTeachingIntent",
+                "samples": [
+                  "play this weeks teaching",
+                  "latest teaching",
+                  "play latest teaching",
+                  "play todays teaching",
+                  "play todays sermon",
+                  "play latest sermon",
+                  "latest sermon",
+                  "play this weeks sermon"
+                ]
+              },
+              {
+                "name": "PurposeStatementIntent",
+                "samples": [
+                  "purpose",
+                  "purpose statement",
+                  "mission",
+                  "mission statement"
+                ]
+              },
+              {
+                "name": "ValuesStatementIntent",
+                "samples": [
+                  "values",
+                  "values statement"
+                ]
+              },
+              {
+                "name": "VisionStatementIntent",
+                "samples": [
+                  "vision",
+                  "vision statement"
+                ]
+              }
                 
             ]
         }
