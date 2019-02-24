@@ -13,17 +13,17 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speechText = 'Welcome to The Meeting House, you can say play the latest teaching or help!';
+    const speechText = 'Welcome to The Meeting House, you can ask to play the latest teaching or ask for help!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .withSimpleCard('The Meeting House', speechText)
       .getResponse();
   },
 };
 
-const PlayThisWeeksTeachingIntent = {
+const PlayThisWeeksTeachingIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'PlayThisWeeksTeachingIntent';
@@ -33,11 +33,11 @@ const PlayThisWeeksTeachingIntent = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard(playThisWeekTeachingText, speechText)
+      .withSimpleCard("Current Teaching", speechText)
       .getResponse();
   },
 };
-const ValuesStatementIntent = {
+const ValuesStatementIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'ValuesStatementIntent';
@@ -47,11 +47,11 @@ const ValuesStatementIntent = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard(valuesText, speechText)
+      .withSimpleCard("Values", speechText)
       .getResponse();
   },
 };
-const PurposeStatementIntent = {
+const PurposeStatementIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'PurposeStatementIntent';
@@ -61,12 +61,12 @@ const PurposeStatementIntent = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard(purposeText, speechText)
+      .withSimpleCard("Purpose", speechText)
       .getResponse();
   },
 };
 
-const VisionStatementIntent = {
+const VisionStatementIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'VisionStatementIntent';
@@ -76,10 +76,26 @@ const VisionStatementIntent = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard(visionText, speechText)
+      .withSimpleCard("Vision", speechText)
       .getResponse();
   },
 };
+const JokeIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'JokeIntent';
+  },
+  handle(handlerInput) {
+    const speechText = "Here's a joke";
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard("Jokes!!", speechText)
+      .getResponse();
+  },
+};
+
+
 
 const HelpIntentHandler = {
   canHandle(handlerInput) {
@@ -87,16 +103,60 @@ const HelpIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can say hello to me!';
+    const speechText = 'You can ask me to play the latest teaching, tell a joke, or ask ask about our vision, values or purpose!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .withSimpleCard('Help', speechText)
       .getResponse();
   },
 };
 
+
+
+const NavigateHomeIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NavigateHomeIntent');
+  },
+  handle(handlerInput) {
+    const speechText = 'Goodbye!';
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('Goodbye!', speechText)
+      .getResponse();
+  },
+};
+const PauseIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PauseIntent');
+  },
+  handle(handlerInput) {
+    const speechText = 'Pausing!';
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('Pause', speechText)
+      .getResponse();
+  },
+};
+const ResumeIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.ResumeIntent');
+  },
+  handle(handlerInput) {
+    const speechText = 'Resuming!';
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('Resume', speechText)
+      .getResponse();
+  },
+};
 const CancelAndStopIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -104,11 +164,11 @@ const CancelAndStopIntentHandler = {
         || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
   },
   handle(handlerInput) {
-    const speechText = 'Goodbye!';
+    const speechText = 'Stopping';
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .withSimpleCard('Stopped', speechText)
       .getResponse();
   },
 };
@@ -142,11 +202,15 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
   .addRequestHandlers(
-      LaunchRequestHandler,
-      PlayThisWeeksTeachingIntent,
-VisionStatementIntent,
-PurposeStatementIntent,
-ValuesStatementIntent,
+    PauseIntentHandler,
+    ResumeIntentHandler,
+    NavigateHomeIntentHandler,
+    JokeIntentHandler
+    LaunchRequestHandler,
+    PlayThisWeeksTeachingIntentHandler,
+    VisionStatementIntentHandler,
+    PurposeStatementIntentHandler,
+    ValuesStatementIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler
