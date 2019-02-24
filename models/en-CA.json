@@ -1,70 +1,222 @@
 {
-    "interactionModel": {
-        "languageModel": {
-            "invocationName": "the meeting house",
-            "intents": [
-                {
-                    "name": "AMAZON.CancelIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.HelpIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.PauseIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.ResumeIntent",
-                    "samples": []
-                },
-              {
-                "name": "PlayThisWeeksTeachingIntent",
-                "samples": [
-                  "play this weeks teaching",
-                  "latest teaching",
-                  "play latest teaching",
-                  "play todays teaching",
-                  "play todays sermon",
-                  "play latest sermon",
-                  "latest sermon",
-                  "play this weeks sermon"
-                ]
-              },
-              {
-                "name": "PurposeStatementIntent",
-                "samples": [
-                  "purpose",
-                  "purpose statement",
-                  "mission",
-                  "mission statement"
-                ]
-              },
-              {
-                "name": "ValuesStatementIntent",
-                "samples": [
-                  "values",
-                  "values statement"
-                ]
-              },
-              {
-                "name": "VisionStatementIntent",
-                "samples": [
-                  "vision",
-                  "vision statement"
-                ]
+  "interactionModel": {
+    "languageModel": {
+      "types": [
+        {
+          "name": "MEETINGHOUSE_SITE",
+          "values": [
+            {
+              "id": "DowntownToronto",
+              "name": {
+                "value": "Downtown Toronto"
               }
-                
-            ]
+            },
+            {
+              "id": "london",
+              "name": {
+                "value": "london"
+              }
+            },
+            {
+              "id": "brantford",
+              "name": {
+                "value": "brantford"
+              }
+            },
+            {
+              "id": "ancaster",
+              "name": {
+                "value": "ancaster"
+              }
+            },
+            {
+              "id": "downtownhamilton",
+              "name": {
+                "value": "downtown hamilton"
+              }
+            },
+            {
+              "id": "hamiltonmountain",
+              "name": {
+                "value": "hamilton mountain"
+              }
+            },
+            {
+              "id": "kitchener",
+              "name": {
+                "value": "kitchener"
+              }
+            },
+            {
+              "id": "waterloo",
+              "name": {
+                "value": "waterloo"
+              }
+            },
+            {
+              "id": "burlington",
+              "name": {
+                "value": "burlington"
+              }
+            },
+            {
+              "id": "oakville",
+              "name": {
+                "value": "oakville"
+              }
+            },
+            {
+              "id": "brampton",
+              "name": {
+                "value": "brampton"
+              }
+            },
+            {
+              "id": "owensound",
+              "name": {
+                "value": "owen sound"
+              }
+            },
+            {
+              "id": "parrysound",
+              "name": {
+                "value": "parry sound"
+              }
+            },
+            {
+              "id": "highpark",
+              "name": {
+                "value": "high park"
+              }
+            },
+            {
+              "id": "easttoronto",
+              "name": {
+                "value": "east toronto"
+              }
+            },
+            {
+              "id": "uptowntoronto",
+              "name": {
+                "value": "uptown toronto"
+              }
+            },
+            {
+              "id": "richmondhill",
+              "name": {
+                "value": "richmond hill"
+              }
+            },
+            {
+              "id": "newmarket",
+              "name": {
+                "value": "newmarket"
+              }
+            },
+            {
+              "id": "alliston",
+              "name": {
+                "value": "alliston"
+              }
+            },
+            {
+              "id": "sandbanks",
+              "name": {
+                "value": "sandbanks"
+              }
+            },
+            {
+              "id": "Ottawa",
+              "name": {
+                "value": "ottawa"
+              }
+            }
+          ]
         }
+      ],
+      "invocationName": "the meeting house",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "PlayThisWeeksTeachingIntent",
+          "samples": [
+            "play this weeks teaching",
+            "latest teaching",
+            "play latest teaching",
+            "play todays teaching",
+            "play todays sermon",
+            "play latest sermon",
+            "latest sermon",
+            "play this weeks sermon",
+            "latest episode",
+            "play this weeks episode",
+            "play todays episode",
+            "play latest episode"
+          ]
+        },
+        {
+          "name": "PurposeStatementIntent",
+          "samples": [
+            "purpose",
+            "purpose statement",
+            "mission",
+            "mission statement"
+          ]
+        },
+        {
+          "name": "ValuesStatementIntent",
+          "samples": [
+            "values",
+            "values statement"
+          ]
+        },
+        {
+          "name": "VisionStatementIntent",
+          "samples": [
+            "vision",
+            "vision statement"
+          ]
+        },
+        {
+          "name": "JokeIntent",
+          "slots": [
+            {
+              "name": "meetinghouseSite",
+              "type": "MEETINGHOUSE_SITE"
+
+            }
+          ],
+          "samples": [
+            "tell a joke",
+            "tell a joke from {meetinghouseSite}",
+            "tell me a joke",
+            "tell me a joke from {meetinghouseSite}"
+          ]
+        }
+      ]
     }
+  }
 }
