@@ -7,6 +7,61 @@ const visionText="To introduce spiritually curious people to the Jesus-centred l
 const playThisWeekTeachingText="Here's this weeks teaching:"
 
 const Alexa = require('ask-sdk-core');
+var xml2js = require('xml2js');
+const https = require('https');
+var parser = new xml2js.Parser();
+
+parser.on('error', function(err) { console.log('Parser error', err); });
+
+const podcastFeedURL="https://media.themeetinghouse.com/podcast/TMH.rss"
+const get = async (url) => {
+    return new Promise((resolve, reject) => {
+        var data = '';
+        https.get(url, function(res) {
+            if (res.statusCode >= 200 && res.statusCode < 400) {
+                res.on('data', function(data_) { data += data_.toString(); });
+                res.on('end', function() {
+                    //console.log('data', data);
+                    parser.parseString(data, function(err, result) {
+                     //   console.log('FINISHED', err, result);
+                        resolve(result);
+                    });
+                });
+            }
+        }).on('error', function(e) {
+            console.log("Got error: " + e.message);
+            reject(e);
+        });
+    });
+};
+async function ProcessJSON(response){
+    var podcast=await get(podcastFeedURL);
+
+
+
+
+console.log("item:", podcast.rss.channel[0].item[0].enclosure[0].$.url);ƒ
+var podcastURL= podcast.rss.channel[0].item[0].enclosure[0].$.url;
+    const speechText = playThisWeekTeachingText;
+
+    return response.responseBuilder
+      .speak(speechText)
+      .withSimpleCard("Current Teaching", speechText)
+      .speak(speechText)
+      .addDirective({
+            'type': 'AudioPlayer.Play',
+            'playBehavior': 'REPLACE_ALL',
+            'audioItem': {
+                'stream': {
+                    'streamFormat': "AUDIO_MPEG",
+                    'token': podcastURL,
+                    'url': podcastURL,
+                    'offsetInMilliseconds': 0
+                }
+            }
+        })
+      .getResponse();
+ }
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -22,21 +77,19 @@ const LaunchRequestHandler = {
       .getResponse();
   },
 };
-
 const PlayThisWeeksTeachingIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'PlayThisWeeksTeachingIntent';
   },
   handle(handlerInput) {
-    const speechText = playThisWeekTeachingText;
+    console.log('IN PlayThisWeeksTeachingIntent');
 
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard("Current Teaching", speechText)
-      .getResponse();
+    return ProcessJSON(handlerInput);
+
   },
 };
+//
 const ValuesStatementIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -80,6 +133,7 @@ const VisionStatementIntentHandler = {
       .getResponse();
   },
 };
+/*
 const JokeIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -94,7 +148,7 @@ const JokeIntentHandler = {
       .getResponse();
   },
 };
-
+*/
 
 
 const HelpIntentHandler = {
@@ -103,7 +157,8 @@ const HelpIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can ask me to play the latest teaching, tell a joke, or ask ask about our vision, values or purpose!';
+    //const speechText = 'You can ask me to play the latest teaching, tell a joke, or ask ask about our vision, values or purpose!';
+    const speechText = 'You can ask me to play the latest teaching, or ask ask about our vision, values or purpose!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -205,7 +260,7 @@ exports.handler = skillBuilder
     PauseIntentHandler,
     ResumeIntentHandler,
     NavigateHomeIntentHandler,
-    JokeIntentHandler
+  // JokeIntentHandler,
     LaunchRequestHandler,
     PlayThisWeeksTeachingIntentHandler,
     VisionStatementIntentHandler,

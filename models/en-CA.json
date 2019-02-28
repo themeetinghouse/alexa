@@ -199,22 +199,6 @@
             "vision",
             "vision statement"
           ]
-        },
-        {
-          "name": "JokeIntent",
-          "slots": [
-            {
-              "name": "meetinghouseSite",
-              "type": "MEETINGHOUSE_SITE"
-
-            }
-          ],
-          "samples": [
-            "tell a joke",
-            "tell a joke from {meetinghouseSite}",
-            "tell me a joke",
-            "tell me a joke from {meetinghouseSite}"
-          ]
         }
       ]
     }
