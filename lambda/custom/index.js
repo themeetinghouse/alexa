@@ -40,8 +40,8 @@ async function ProcessJSON(response){
 
 
 
-console.log("item:", podcast.rss.channel[0].item[0].enclosure[0].$.url);ƒ
-var podcastURL= podcast.rss.channel[0].item[0].enclosure[0].$.url;
+    console.log("item:", podcast.rss.channel[0].item[0].enclosure[0].$.url);
+    var podcastURL= podcast.rss.channel[0].item[0].enclosure[0].$.url;
     const speechText = playThisWeekTeachingText;
 
     return response.responseBuilder
@@ -184,50 +184,6 @@ const NavigateHomeIntentHandler = {
       .getResponse();
   },
 };
-const PauseIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PauseIntent');
-  },
-  handle(handlerInput) {
-    const speechText = 'Pausing!';
-
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard('Pause', speechText)
-      .getResponse();
-  },
-};
-const ResumeIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.ResumeIntent');
-  },
-  handle(handlerInput) {
-    const speechText = 'Resuming!';
-
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard('Resume', speechText)
-      .getResponse();
-  },
-};
-const CancelAndStopIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-  },
-  handle(handlerInput) {
-    const speechText = 'Stopping';
-
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard('Stopped', speechText)
-      .getResponse();
-  },
-};
-
 const SessionEndedRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
@@ -257,8 +213,8 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
   .addRequestHandlers(
-    PauseIntentHandler,
-    ResumeIntentHandler,
+  //  PauseIntentHandler,
+  //  ResumeIntentHandler,
     NavigateHomeIntentHandler,
   // JokeIntentHandler,
     LaunchRequestHandler,
@@ -267,7 +223,7 @@ exports.handler = skillBuilder
     PurposeStatementIntentHandler,
     ValuesStatementIntentHandler,
     HelpIntentHandler,
-    CancelAndStopIntentHandler,
+    //CancelAndStopIntentHandler,
     SessionEndedRequestHandler
   )
   .addErrorHandlers(ErrorHandler)
