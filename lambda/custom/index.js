@@ -5,6 +5,7 @@ const purposeText="We exist to grow loving communities of Jesus-followers who li
 const valuesText="We walk in the way of Jesus, toward community, simplicity, and peace, with a mission to invite others to join us."
 const visionText="To introduce spiritually curious people to the Jesus-centred life, through a movement of local Jesus-centred churches"
 const playThisWeekTeachingText="Here's this weeks teaching:"
+const playLastWeekTeachingText="Here's last weeks teaching:"
 
 const Alexa = require('ask-sdk-core');
 var xml2js = require('xml2js');
@@ -34,12 +35,8 @@ const get = async (url) => {
         });
     });
 };
-async function ProcessJSON(response){
+async function ProcessJSONForThisWeek(response){
     var podcast=await get(podcastFeedURL);
-
-
-
-
     console.log("item:", podcast.rss.channel[0].item[0].enclosure[0].$.url);
     var podcastURL= podcast.rss.channel[0].item[0].enclosure[0].$.url;
     const speechText = playThisWeekTeachingText;
@@ -62,13 +59,36 @@ async function ProcessJSON(response){
         })
       .getResponse();
  }
+ async function ProcessJSONForLastWeek(response){
+  var podcast=await get(podcastFeedURL);
+  console.log("item:", podcast.rss.channel[0].item[1].enclosure[0].$.url);
+  var podcastURL= podcast.rss.channel[0].item[1].enclosure[0].$.url;
+  const speechText = playLastWeekTeachingText;
 
+  return response.responseBuilder
+    .speak(speechText)
+    .withSimpleCard("Last Weeks Teaching", speechText)
+    .speak(speechText)
+    .addDirective({
+          'type': 'AudioPlayer.Play',
+          'playBehavior': 'REPLACE_ALL',
+          'audioItem': {
+              'stream': {
+                  'streamFormat': "AUDIO_MPEG",
+                  'token': podcastURL,
+                  'url': podcastURL,
+                  'offsetInMilliseconds': 0
+              }
+          }
+      })
+    .getResponse();
+}
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speechText = 'Welcome to The Meeting House, you can ask to play the latest teaching or ask for help!';
+    const speechText = 'Welcome to The Meeting House, you can ask to play the latest teaching, play last weeks teaching or ask for help!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -85,11 +105,78 @@ const PlayThisWeeksTeachingIntentHandler = {
   handle(handlerInput) {
     console.log('IN PlayThisWeeksTeachingIntent');
 
-    return ProcessJSON(handlerInput);
+    return ProcessJSONForThisWeek(handlerInput);
+
+  },
+};
+const PlayLastWeeksTeachingIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'PlayLastWeeksTeachingIntent';
+  },
+  handle(handlerInput) {
+    console.log('IN PlayLastWeeksTeachingIntent');
+
+    return ProcessJSONForLastWeek(handlerInput);
 
   },
 };
 //
+
+
+const ResumeIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.ResumeIntent';
+  },
+  handle(handlerInput) {
+    const speechText = "Resuming";
+    console.log('IN ResumeIntent');
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard("Values", speechText)
+      .addDirective({
+        'type': 'AudioPlayer.Play'
+    })
+      .getResponse();
+  },
+};
+const PauseIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PauseIntent';
+  },
+  handle(handlerInput) {
+    const speechText = "Pausing";
+ console.log('IN PauseIntent');
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard("Values", speechText)
+      .addDirective({
+        'type': 'AudioPlayer.Stop'
+    })
+      .getResponse();
+  },
+};
+const CancelAndStopIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelAndStopIntent';
+  },
+  handle(handlerInput) {
+    const speechText = "Stopping";
+    console.log('IN CancelStopIntent');
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard("Values", speechText)
+      .addDirective({
+        'type': 'AudioPlayer.Stop'
+    })
+      .getResponse();
+  },
+};
+
 const ValuesStatementIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -158,7 +245,7 @@ const HelpIntentHandler = {
   },
   handle(handlerInput) {
     //const speechText = 'You can ask me to play the latest teaching, tell a joke, or ask ask about our vision, values or purpose!';
-    const speechText = 'You can ask me to play the latest teaching, or ask ask about our vision, values or purpose!';
+    const speechText = 'You can ask me to play the latest teaching, play last weeks teaching, or ask ask about our vision, values or purpose!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -213,17 +300,18 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
   .addRequestHandlers(
-  //  PauseIntentHandler,
-  //  ResumeIntentHandler,
+    PauseIntentHandler,
+    ResumeIntentHandler,
     NavigateHomeIntentHandler,
   // JokeIntentHandler,
     LaunchRequestHandler,
     PlayThisWeeksTeachingIntentHandler,
+    PlayLastWeeksTeachingIntentHandler,
     VisionStatementIntentHandler,
     PurposeStatementIntentHandler,
     ValuesStatementIntentHandler,
     HelpIntentHandler,
-    //CancelAndStopIntentHandler,
+    CancelAndStopIntentHandler,
     SessionEndedRequestHandler
   )
   .addErrorHandlers(ErrorHandler)
